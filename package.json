@@ -1,0 +1,27 @@
+{
+  "name": "rewireify",
+  "version": "0.0.1",
+  "description": "Rewire for Browserify",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test/spec.js"
+  },
+  "keywords": [
+    "browserify-transform",
+    "browserify",
+    "transform",
+    "testing",
+    "inspect",
+    "debug",
+    "mock",
+    "stub",
+    "test"
+  ],
+  "author": "Matt Hinchliffe",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "~3.41.0",
+    "through": "~2.3.4",
+    "vows": "~0.7.0"
+  }
+}
