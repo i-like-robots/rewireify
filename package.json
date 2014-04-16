@@ -1,10 +1,10 @@
 {
   "name": "rewireify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Rewire for Browserify",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node test/spec.js"
+    "test": "node test/build.js && node test/spec.js"
   },
   "keywords": [
     "browserify-transform",
