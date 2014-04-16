@@ -14,55 +14,60 @@ First install and save Rewireify into your project dependencies:
 $ npm install rewireify --save-dev
 ```
 
-Include the Rewireify transform as part of your Browserify build:
+Include the Rewireify transform as part of your Browserify test build:
 
 ```sh
-$ browserify -e path/to/entry.js -o path/to/output.js -t rewireify
+$ browserify -e app.js -o test-bundle.js -t rewireify -s test-bundle
 ```
 
-Now you can inspect, modify and override your modules internals:
+Now you can inspect, modify and override your modules internals in your tests:
 
 ```js
-var subject = require("../lib/my-module");
-var mock = require("./mock/a-dependency");
+var bundle = require("./path/to/test-bundle");
 
-describe("My Module", function() {
+// Private variables can be leaked...
+subject.__get__("secretKey");
 
-  describe("A method", function() {
-    var original;
+// ...or modified
+subject.__set__("secretKey", 1234);
 
-    before(function() {
-      // Private variables can be leaked
-      original = subject.__get__("subjectDependency");
+// Multiple, nested properties can be changed
+subject.__set({
+  "user.firstname": "Joe",
+  "user.lastname": "Bloggs"
+});
 
-      // And there is access to mock and spy on almost anything
-      subject.__set__("subjectDependency", mock);
-    });
+// Dependencies can be mocked...
+subject.__set__("config", {
+  cache: false,
+  https: false
+});
 
-    after(function() {
-      subject.__set__("subjectDependency", original);
-    });
-
-    it("Should call the method of the dependency", function() {
-      subject.method();
-      expect(mock.method).toHaveBeenCalled();
-    });
-
-  });
-
+// ...or methods stubbed
+subject.__set__("http.get", function(url, cb) {
+  cb("This method has been stubbed");
 });
 ```
 
 ## API
 
-#### `rewiredModule.__get__(name)`
+#### rewiredModule.__get__(name)
 
-- *name*
-  Name of the variable to get. The variable should be global or defined with var in the top-level scope of the module.
+- `name`
 
-#### `rewiredModule.__set__(name, value)`
+    Name of the variable to get. The variable should be defined with var in the top-level scope of the module.
 
-- *name*
-  Name of the variable to set. The variable should be global or defined with var in the top-level scope of the module.
-- *value*
-  The value to set
+#### rewiredModule.__set__(name, value)
+
+- `name`
+
+    Name of the variable to set. The variable should be defined with var in the top-level scope of the module.
+- `value`
+
+    The value to set.
+
+#### rewiredModule.__set__(map)
+
+- `map`
+
+    Takes all keys as variable names and sets their values respectively.
