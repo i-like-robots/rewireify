@@ -34,12 +34,27 @@ vows.describe("Getters and setters").addBatch({
       }
     },
     "can be modified": {
-      topic: function() {
-        fixture.__set__("privateVariable", "I *was* private")
-        return fixture.__get__("privateVariable");
+      "individually": {
+        topic: function() {
+          fixture.__set__("privateVariable", "I *was* private")
+          return fixture.__get__("privateVariable");
+        },
+        "with the setter": function(topic) {
+          assert.equal(topic, "I *was* private");
+        }
       },
-      "with the setter": function(topic) {
-        assert.equal(topic, "I *was* private");
+      "en masse": {
+        topic: function() {
+          fixture.__set__({
+            changeme: "I have been changed",
+            andme: "And me!"
+          });
+          return [fixture.__get__("changeme"), fixture.__get__("andme")];
+        },
+        "by passing an object": function(topic) {
+          assert.equal(topic[0], "I have been changed");
+          assert.equal(topic[1], "And me!");
+        }
       }
     }
   },
