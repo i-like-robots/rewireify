@@ -15,11 +15,13 @@ vows.describe("Injecting methods").addBatch({
     },
     "a getter": function(err, output) {
       assert.isNull(err);
-      assert.match(output, /module\.exports\.__get__\s=\sfunction\s__get__\(\)/);
+      assert.match(output, /var\s__getter\s=\srequire\(.+\);/);
+      assert.match(output, /module\.exports\.__get__\s=\s__get__;/);
     },
     "a setter": function(err, output) {
       assert.isNull(err);
-      assert.match(output, /module\.exports\.__set__\s=\sfunction\s__set__\(\)/);
+      assert.match(output, /var\s__setter\s=\srequire\(.+\);/);
+      assert.match(output, /module\.exports\.__set__\s=\s__set__;/);
     }
   }
 

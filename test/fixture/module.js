@@ -1,6 +1,3 @@
-var fs = require("fs");
-var path = require("path");
-
 var privateVariable = "I am private";
 
 var privateDependency = require("./dependency");
