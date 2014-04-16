@@ -1,6 +1,6 @@
 {
   "name": "rewireify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Rewire for Browserify",
   "main": "lib/index.js",
   "scripts": {
