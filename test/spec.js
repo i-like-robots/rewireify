@@ -1,27 +1,22 @@
+var fs = require("fs");
+var path = require("path");
 var vows = require("vows");
 var assert = require("assert");
-var browserify = require("browserify");
-
-var rewireify = require("../lib/index");
-var fixture = require("./fixture/module");
+var fixture = require("./test-bundle");
 
 vows.describe("Injecting methods").addBatch({
 
-  "Methods are injected into stream": {
+  "Methods are injected into bundle": {
     topic: function() {
-      browserify("./fixture/module.js", {basedir: __dirname})
-        .transform(rewireify)
-        .bundle(this.callback);
+      fs.readFile(path.join(__dirname, "test-bundle.js"), { encoding: "utf8" }, this.callback)
     },
-    "a getter": function(err, output) {
+    "to leak variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(output, /var\s__getter\s=\srequire\(.+\);/);
-      assert.match(output, /module\.exports\.__get__\s=\s__get__;/);
+      assert.match(contents, /module\.exports\.__get__\s=\s__get__;/);
     },
-    "a setter": function(err, output) {
+    "to modify variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(output, /var\s__setter\s=\srequire\(.+\);/);
-      assert.match(output, /module\.exports\.__set__\s=\s__set__;/);
+      assert.match(contents, /module\.exports\.__set__\s=\s__set__;/);
     }
   }
 
