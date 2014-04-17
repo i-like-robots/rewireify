@@ -1,7 +1,12 @@
 var fs = require("fs");
 var vows = require("vows");
+var sinon = require("sinon");
 var assert = require("assert");
 var fixture = require("./test-bundle");
+
+function reset(target) {
+  fixture.__get__(target).restore && fixture.__get__(target).restore();
+}
 
 vows.describe("Injecting methods").addBatch({
 
@@ -60,15 +65,27 @@ vows.describe("Getters and setters").addBatch({
 
   "Dependencies": {
     "can be modified": {
-      topic: function() {
-        fixture.__set__("privateDependency.exampleMethod", function() {
-          return "I am a stub";
-        });
-
-        return fixture.methodUsingDependency();
+      "with stubs": {
+        topic: function() {
+          reset("privateDependency.exampleMethod");
+          sinon.stub(fixture.__get__("privateDependency"), "exampleMethod", function() {
+            return "I am a stub";
+          });
+          return fixture.methodUsingDependency();
+        },
+        "using sinon.stub": function(topic) {
+          assert.equal(topic, "I am a stub");
+        }
       },
-      "with a stubbed method": function(topic) {
-        assert.equal(topic, "I am a stub");
+      "with spies": {
+        topic: function() {
+          reset("privateDependency.exampleMethod");
+          sinon.spy(fixture.__get__("privateDependency"), "exampleMethod")();
+          return fixture.__get__("privateDependency.exampleMethod");
+        },
+        "using sinon.spy": function(topic) {
+          assert.equal(topic.calledOnce, true);
+        }
       }
     },
     "can be overridden": {

@@ -67,8 +67,8 @@ module.exports = __set__;
 
 },{}],3:[function(_dereq_,module,exports){
 /* This code was injected by Rewireify */
-var __getter = _dereq_("/Users/matthinchliffe/Code/Rewireify/lib/__get__").toString();
-var __setter = _dereq_("/Users/matthinchliffe/Code/Rewireify/lib/__set__").toString();
+var __getter = _dereq_("/Users/matt/Code/rewireify/lib/__get__").toString();
+var __setter = _dereq_("/Users/matt/Code/rewireify/lib/__set__").toString();
 exports.exampleMethod = function() {
   return "I am an example";
 };
@@ -78,10 +78,10 @@ eval(__setter);
 module.exports.__get__ = __get__;
 module.exports.__set__ = __set__;
 
-},{"/Users/matthinchliffe/Code/Rewireify/lib/__get__":1,"/Users/matthinchliffe/Code/Rewireify/lib/__set__":2}],4:[function(_dereq_,module,exports){
+},{"/Users/matt/Code/rewireify/lib/__get__":1,"/Users/matt/Code/rewireify/lib/__set__":2}],4:[function(_dereq_,module,exports){
 /* This code was injected by Rewireify */
-var __getter = _dereq_("/Users/matthinchliffe/Code/Rewireify/lib/__get__").toString();
-var __setter = _dereq_("/Users/matthinchliffe/Code/Rewireify/lib/__set__").toString();
+var __getter = _dereq_("/Users/matt/Code/rewireify/lib/__get__").toString();
+var __setter = _dereq_("/Users/matt/Code/rewireify/lib/__set__").toString();
 var privateVariable = "I am private";
 
 var privateDependency = _dereq_("./dependency");
@@ -97,6 +97,6 @@ eval(__setter);
 module.exports.__get__ = __get__;
 module.exports.__set__ = __set__;
 
-},{"./dependency":3,"/Users/matthinchliffe/Code/Rewireify/lib/__get__":1,"/Users/matthinchliffe/Code/Rewireify/lib/__set__":2}]},{},[4])
+},{"./dependency":3,"/Users/matt/Code/rewireify/lib/__get__":1,"/Users/matt/Code/rewireify/lib/__set__":2}]},{},[4])
 (4)
 });
