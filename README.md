@@ -32,7 +32,7 @@ subject.__get__("secretKey");
 subject.__set__("secretKey", 1234);
 
 // Multiple, nested properties can be changed
-subject.__set({
+subject.__set__({
   "user.firstname": "Joe",
   "user.lastname": "Bloggs"
 });
@@ -51,13 +51,13 @@ subject.__set__("http.get", function(url, cb) {
 
 ## API
 
-#### rewiredModule.__get__(name)
+#### rewiredModule.\_\_get__(name)
 
 - `name`
 
     Name of the variable to get. The variable should be defined with var in the top-level scope of the module.
 
-#### rewiredModule.__set__(name, value)
+#### rewiredModule.\_\_set__(name, value)
 
 - `name`
 
@@ -66,7 +66,7 @@ subject.__set__("http.get", function(url, cb) {
 
     The value to set.
 
-#### rewiredModule.__set__(map)
+#### rewiredModule.\_\_set__(map)
 
 - `map`
 
