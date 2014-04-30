@@ -2,7 +2,7 @@ var fs = require("fs");
 var vows = require("vows");
 var sinon = require("sinon");
 var assert = require("assert");
-var fixture = require("./test-bundle");
+var fixture = require("./bundle");
 
 function reset(target) {
   fixture.__get__(target).restore && fixture.__get__(target).restore();
@@ -12,7 +12,7 @@ vows.describe("Injecting methods").addBatch({
 
   "Methods are injected into bundle": {
     topic: function() {
-      fs.readFile(require.resolve("./test-bundle.js"), { encoding: "utf8" }, this.callback)
+      fs.readFile(require.resolve("./bundle.js"), { encoding: "utf8" }, this.callback)
     },
     "to leak variables": function(err, contents) {
       assert.isNull(err);
