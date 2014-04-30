@@ -12,6 +12,6 @@ browserify("./template/module.js", {basedir: __dirname})
       console.error(err);
     }
     else {
-      fs.writeFileSync(path.join(__dirname, "test-bundle.js"), output);
+      fs.writeFileSync(path.join(__dirname, "bundle.js"), output);
     }
   });
