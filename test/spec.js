@@ -28,7 +28,7 @@ vows.describe("Injecting methods").addBatch({
 
 vows.describe("Getters and setters").addBatch({
 
-  "A private variable": {
+  "Private variables": {
     "can be inspected": {
       topic: function() {
         return fixture.__get__("privateVariable");
@@ -64,8 +64,20 @@ vows.describe("Getters and setters").addBatch({
   },
 
   "Dependencies": {
+    "can be inspected": {
+      "with a spy": {
+        topic: function() {
+          reset("privateDependency.exampleMethod");
+          sinon.spy(fixture.__get__("privateDependency"), "exampleMethod")();
+          return fixture.__get__("privateDependency.exampleMethod");
+        },
+        "using sinon.spy": function(topic) {
+          assert.equal(topic.calledOnce, true);
+        }
+      }
+    },
     "can be modified": {
-      "with stubs": {
+      "with a stub": {
         topic: function() {
           reset("privateDependency.exampleMethod");
           sinon.stub(fixture.__get__("privateDependency"), "exampleMethod", function() {
@@ -77,29 +89,19 @@ vows.describe("Getters and setters").addBatch({
           assert.equal(topic, "I am a stub");
         }
       },
-      "with spies": {
+      "with a double": {
         topic: function() {
-          reset("privateDependency.exampleMethod");
-          sinon.spy(fixture.__get__("privateDependency"), "exampleMethod")();
-          return fixture.__get__("privateDependency.exampleMethod");
-        },
-        "using sinon.spy": function(topic) {
-          assert.equal(topic.calledOnce, true);
-        }
-      }
-    },
-    "can be overridden": {
-      topic: function() {
-        fixture.__set__("privateDependency", {
-          exampleMethod: function() {
-            return "I am a double";
-          }
-        });
+          fixture.__set__("privateDependency", {
+            exampleMethod: function() {
+              return "I am a double";
+            }
+          });
 
-        return fixture.methodUsingDependency();
-      },
-      "with a test double": function(topic) {
-        assert.equal(topic, "I am a double");
+          return fixture.methodUsingDependency();
+        },
+        "with a test double": function(topic) {
+          assert.equal(topic, "I am a double");
+        }
       }
     }
   }
