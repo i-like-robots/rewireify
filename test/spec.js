@@ -16,11 +16,11 @@ vows.describe("Injecting methods").addBatch({
     },
     "to leak variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__get__\s=\s__get__;/);
+      assert.match(contents, /module\.exports\.__get__\s=\sfunction\s__get__\(\).+/);
     },
     "to modify variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__set__\s=\s__set__;/);
+      assert.match(contents, /module\.exports\.__set__\s=\sfunction\s__set__\(\).+/);
     }
   }
 
