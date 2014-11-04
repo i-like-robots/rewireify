@@ -47,13 +47,22 @@ vows.describe("Getters and setters").addBatch({
           assert.equal(topic, "I *was* private");
         }
       },
+      "within other objects": {
+        topic: function() {
+          fixture.__set__("changeInside.changeMe", "I *was* private")
+          return fixture.__get__("changeInside.changeMe");
+        },
+        "using dot notation": function(topic) {
+          assert.equal(topic, "I *was* private");
+        }
+      },
       "en masse": {
         topic: function() {
           fixture.__set__({
-            changeme: "I have been changed",
-            andme: "And me!"
+            changeMe: "I have been changed",
+            andMe: "And me!"
           });
-          return [fixture.__get__("changeme"), fixture.__get__("andme")];
+          return [fixture.__get__("changeMe"), fixture.__get__("andMe")];
         },
         "by passing an object": function(topic) {
           assert.equal(topic[0], "I have been changed");
