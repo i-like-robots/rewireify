@@ -16,11 +16,11 @@ vows.describe("Injecting methods").addBatch({
     },
     "to leak variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__get__\s=\s__get__;/);
+      assert.match(contents, /module\.exports\.__get__/);
     },
     "to modify variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__set__\s=\s__set__;/);
+      assert.match(contents, /module\.exports\.__set__/);
     }
   }
 
@@ -40,7 +40,7 @@ vows.describe("Getters and setters").addBatch({
     "can be modified": {
       "individually": {
         topic: function() {
-          fixture.__set__("privateVariable", "I *was* private")
+          fixture.__set__("privateVariable", "I *was* private");
           return fixture.__get__("privateVariable");
         },
         "with the setter": function(topic) {
@@ -49,8 +49,8 @@ vows.describe("Getters and setters").addBatch({
       },
       "within other objects": {
         topic: function() {
-          fixture.__set__("changeInside.changeMe", "I *was* private")
-          return fixture.__get__("changeInside.changeMe");
+          fixture.__set__("changeNested.child", "I *was* private");
+          return fixture.__get__("changeNested.child");
         },
         "using dot notation": function(topic) {
           assert.equal(topic, "I *was* private");
@@ -59,14 +59,14 @@ vows.describe("Getters and setters").addBatch({
       "en masse": {
         topic: function() {
           fixture.__set__({
-            changeMe: "I have been changed",
-            andMe: "And me!"
+            changeThis: "I have been changed",
+            changeThat: "I have been changed too"
           });
-          return [fixture.__get__("changeMe"), fixture.__get__("andMe")];
+          return [fixture.__get__("changeThis"), fixture.__get__("changeThat")];
         },
         "by passing an object": function(topic) {
           assert.equal(topic[0], "I have been changed");
-          assert.equal(topic[1], "And me!");
+          assert.equal(topic[1], "I have been changed too");
         }
       }
     }
