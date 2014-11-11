@@ -1,12 +1,14 @@
-var privateVariable = "I am private";
+var inspectPrivate = "I am private"
+
+var modifyIndividual = "I will be changed";
+
+var modifyWithin = {
+  key: "I will be changed"
+};
+
+var modifyEnMasseA = modifyEnMasseB = "I will be changed";
 
 var privateDependency = require("./dependency");
-
-var changeThis = changeThat = "We will be changed en masse";
-
-var changeNested = {
-  child: "I will be changed"
-};
 
 exports.methodUsingDependency = function() {
   return privateDependency.exampleMethod();

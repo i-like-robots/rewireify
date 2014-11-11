@@ -37,11 +37,8 @@ subject.__get__("secretKey");
 // ...or modified
 subject.__set__("secretKey", 1234);
 
-// Multiple, nested properties can be changed
-subject.__set__({
-  "user.firstname": "Joe",
-  "user.lastname": "Bloggs"
-});
+// Nested properties can be inspected or modified
+subject.__set__("user.firstname", "Joe");
 
 // Dependencies can be mocked...
 subject.__set__("config", {

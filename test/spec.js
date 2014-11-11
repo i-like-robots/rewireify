@@ -31,7 +31,7 @@ vows.describe("Getters and setters").addBatch({
   "Private variables": {
     "can be inspected": {
       topic: function() {
-        return fixture.__get__("privateVariable");
+        return fixture.__get__("inspectPrivate");
       },
       "with the getter": function(topic) {
         assert.equal(topic, "I am private");
@@ -40,33 +40,34 @@ vows.describe("Getters and setters").addBatch({
     "can be modified": {
       "individually": {
         topic: function() {
-          fixture.__set__("privateVariable", "I *was* private");
-          return fixture.__get__("privateVariable");
+          fixture.__set__("modifyIndividual", "I have been changed");
+          return fixture.__get__("modifyIndividual");
         },
         "with the setter": function(topic) {
-          assert.equal(topic, "I *was* private");
+          assert.equal(topic, "I have been changed");
         }
       },
-      "within other objects": {
+      "within objects": {
         topic: function() {
-          fixture.__set__("changeNested.child", "I *was* private");
-          return fixture.__get__("changeNested.child");
+          fixture.__set__("modifyWithin.key", "I have been changed");
+          return fixture.__get__("modifyWithin.key");
         },
         "using dot notation": function(topic) {
-          assert.equal(topic, "I *was* private");
+          assert.equal(topic, "I have been changed");
         }
       },
       "en masse": {
         topic: function() {
           fixture.__set__({
-            changeThis: "I have been changed",
-            changeThat: "I have been changed too"
+            modifyEnMasseA: "I have been changed",
+            modifyEnMasseB: "I have been changed, too"
           });
-          return [fixture.__get__("changeThis"), fixture.__get__("changeThat")];
+
+          return [fixture.__get__("modifyEnMasseA"), fixture.__get__("modifyEnMasseB")];
         },
         "by passing an object": function(topic) {
           assert.equal(topic[0], "I have been changed");
-          assert.equal(topic[1], "I have been changed too");
+          assert.equal(topic[1], "I have been changed, too");
         }
       }
     }
