@@ -13,3 +13,7 @@ var privateDependency = require("./dependency");
 exports.methodUsingDependency = function() {
   return privateDependency.exampleMethod();
 };
+
+exports.exposeIgnoredDependency = function() {
+  return require("./ignore-me");
+};
