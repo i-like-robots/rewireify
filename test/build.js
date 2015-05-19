@@ -11,7 +11,7 @@ var browserifyOptions = {
 };
 
 var rewireifyOptions = {
-  ignore: "*-me.js"
+  ignore: "**/*-me.js"
 };
 
 browserify("./template/module.js", browserifyOptions)

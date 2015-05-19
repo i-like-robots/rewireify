@@ -25,7 +25,7 @@ $ browserify -e app.js -o test-bundle.js -t rewireify -s test-bundle
 Rewireify can also ignore certain files with the `--ignore` option and a filename or glob expression. Multiple files or patterns can be excluded by separating them with commas:
 
 ```sh
-$ browserify -e app.js -o test-bundle.js -t [ rewireify --ignore filename.js,*-mixin.js ] -s test-bundle
+$ browserify -e app.js -o test-bundle.js -t [ rewireify --ignore filename.js,**/*-mixin.js ] -s test-bundle
 ```
 
 Now you can inspect, modify and override your modules internals in your tests:
