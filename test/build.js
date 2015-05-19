@@ -5,13 +5,21 @@ var rewireify = require("../lib/index");
 
 console.log("Building test bundle...");
 
-browserify("./template/module.js", {basedir: __dirname})
-  .transform(rewireify)
-  .bundle({ standalone: "test-bundle" }, function(err, output) {
+var browserifyOptions = {
+  basedir: __dirname,
+  standalone: "test-bundle"
+};
+
+var rewireifyOptions = {
+  ignore: "**/*-me.js"
+};
+
+browserify("./template/module.js", browserifyOptions)
+  .transform(rewireify, rewireifyOptions)
+  .bundle(function(err, output) {
     if (err) {
       console.error(err);
-    }
-    else {
+    } else {
       fs.writeFileSync(path.join(__dirname, "bundle.js"), output);
     }
   });

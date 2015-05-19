@@ -22,6 +22,15 @@ vows.describe("Injecting methods").addBatch({
       assert.isNull(err);
       assert.match(contents, /module\.exports\.__set__/);
     }
+  },
+  "Files can be ignored": {
+    topic: function() {
+      return fixture.exposeIgnoredDependency();
+    },
+    "so the getter and setter are not appended": function(topic) {
+      assert.equal(topic.__get__, undefined);
+      assert.equal(topic.__set__, undefined);
+    }
   }
 
 }).run();

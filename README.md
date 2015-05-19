@@ -6,6 +6,8 @@ Rewireify is a port of [Rewire](https://github.com/jhnns/rewire) for [Browserify
 - Leak private variables
 - Override variables within the module
 
+Rewireify is compatible with Browserify 3+
+
 ## Usage
 
 First install and save Rewireify into your project dependencies:
@@ -20,10 +22,10 @@ Include the Rewireify transform as part of your Browserify test build:
 $ browserify -e app.js -o test-bundle.js -t rewireify -s test-bundle
 ```
 
-Rewireify can also ignore certain files with the `--ignore` option and a filename. Multiple files can be excluded by separating them with commas:
+Rewireify can also ignore certain files with the `--ignore` option and a filename or glob expression. Multiple files or patterns can be excluded by separating them with commas:
 
 ```sh
-$ browserify -e app.js -o test-bundle.js -t [ rewireify --ignore filename,second-filename ] -s test-bundle
+$ browserify -e app.js -o test-bundle.js -t [ rewireify --ignore filename.js,**/*-mixin.js ] -s test-bundle
 ```
 
 Now you can inspect, modify and override your modules internals in your tests:
