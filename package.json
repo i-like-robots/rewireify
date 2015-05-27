@@ -20,12 +20,12 @@
   "dependencies": {
     "minimatch": "^2.0.7",
     "rewire": "^2.3.3",
-    "through": "~2.3.4"
+    "through": "^2.3.7"
   },
   "devDependencies": {
     "browserify": "10.x",
-    "sinon": "~1.9.1",
-    "vows": "~0.7.0"
+    "sinon": "^1.14.0",
+    "vows": "^0.8.0"
   },
   "repository": {
     "type": "git",
