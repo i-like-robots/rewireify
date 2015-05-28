@@ -52,6 +52,12 @@ subject.__set__("config", {
 subject.__set__("http.get", function(url, cb) {
   cb("This method has been stubbed");
 });
+
+// And as per Rewire...
+var revert = subject.__set__("port", 3000);
+
+// ...changes can be reverted
+revert();
 ```
 
 ## API

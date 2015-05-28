@@ -72,11 +72,31 @@ vows.describe("Getters and setters").addBatch({
             modifyEnMasseB: "I have been changed, too"
           });
 
-          return [fixture.__get__("modifyEnMasseA"), fixture.__get__("modifyEnMasseB")];
+          return [
+            fixture.__get__("modifyEnMasseA"),
+            fixture.__get__("modifyEnMasseB")
+          ];
         },
         "by passing an object": function(topic) {
           assert.equal(topic[0], "I have been changed");
           assert.equal(topic[1], "I have been changed, too");
+        }
+      }
+    },
+    "can be restored": {
+      topic: function() {
+        return fixture.__set__("modifyIndividual", "I have been changed _again_");
+      },
+      "by a function returned from __set__": function(topic) {
+        assert.isFunction(topic);
+      },
+      "that when called": {
+        topic: function(revert) {
+          revert();
+          return fixture.__get__("modifyIndividual");
+        },
+        "will revert to the original value": function(topic) {
+          assert.equal(topic, "I will be changed");
         }
       }
     }
