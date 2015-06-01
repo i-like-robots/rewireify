@@ -10,13 +10,13 @@ Rewireify is compatible with Browserify 3+
 
 ## Usage
 
-First install and save Rewireify into your project dependencies:
+First install and save Rewireify into your project's development dependencies:
 
 ```sh
 $ npm install rewireify --save-dev
 ```
 
-Include the Rewireify transform as part of your Browserify test build:
+Include the Rewireify transform as part of your test bundle:
 
 ```sh
 $ browserify -e app.js -o test-bundle.js -t rewireify -s test-bundle
@@ -28,7 +28,7 @@ Rewireify can also ignore certain files with the `--ignore` option and a filenam
 $ browserify -e app.js -o test-bundle.js -t [ rewireify --ignore filename.js,**/*-mixin.js ] -s test-bundle
 ```
 
-Now you can inspect, modify and override your modules internals in your tests:
+Now you can inspect, modify and override your modules internals in your tests. The `__get__` and `__set__` methods are the same as Rewire:
 
 ```js
 var bundle = require("./path/to/test-bundle");
@@ -52,27 +52,11 @@ subject.__set__("config", {
 subject.__set__("http.get", function(url, cb) {
   cb("This method has been stubbed");
 });
+
+// And everything can be reverted
+var revert = subject.__set__("port", 3000);
+
+revert();
 ```
 
-## API
-
-#### rewiredModule.\_\_get__(name)
-
-- `name`
-
-    Name of the variable to get. The variable should be defined with var in the top-level scope of the module.
-
-#### rewiredModule.\_\_set__(name, value)
-
-- `name`
-
-    Name of the variable to set. The variable should be defined with var in the top-level scope of the module.
-- `value`
-
-    The value to set.
-
-#### rewiredModule.\_\_set__(map)
-
-- `map`
-
-    Takes all keys as variable names and sets their values respectively.
+For more details check out the [Rewire documentation](https://github.com/jhnns/rewire/blob/master/README.md#api).
