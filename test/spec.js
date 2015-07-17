@@ -16,11 +16,11 @@ vows.describe("Injecting methods").addBatch({
     },
     "to leak variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__get__/);
+      assert.include(contents, "Object.defineProperty(module.exports, '__get__'");
     },
     "to modify variables": function(err, contents) {
       assert.isNull(err);
-      assert.match(contents, /module\.exports\.__set__/);
+      assert.include(contents, "Object.defineProperty(module.exports, '__set__'");
     }
   },
   "Files can be ignored": {
@@ -36,6 +36,16 @@ vows.describe("Injecting methods").addBatch({
 }).run();
 
 vows.describe("Getters and setters").addBatch({
+  "are not exposed": {
+    topic: function() {
+      return fixture;
+    },
+    "publicly": function(topic) {
+      var keys = Object.keys(topic);
+      assert.notInclude(keys, '__get__');
+      assert.notInclude(keys, '__set__');
+    }
+  },
 
   "Private variables": {
     "can be inspected": {
