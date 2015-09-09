@@ -1,6 +1,6 @@
 {
   "name": "rewireify",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Rewireify is a port of Rewire for Browserify that adds setter and getter methods to each module so that their behaviour can be modified for better unit testing.",
   "main": "lib/index.js",
   "scripts": {
