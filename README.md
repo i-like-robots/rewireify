@@ -60,3 +60,7 @@ revert();
 ```
 
 For more details check out the [Rewire documentation](https://github.com/jhnns/rewire/blob/master/README.md#api).
+
+## Usage with ES6
+
+Rewireify will continue to work in ES6 environments but variables declared as constants (using `const`) may pose some issues. Constants cannot be reassigned and is now common practice to declare dependencies as such and therefore Rewireify will be unable to to replace them. However, variables declared as constants are not immutable so their individual methods and properties can still accessed and modified. If you must replace an entire dependency in your test environment and you have switched to using `const` then I recommended checking out [Proxyquireify](https://github.com/thlorenz/proxyquireify).

@@ -129,9 +129,11 @@ vows.describe("Getters and setters").addBatch({
       "with a stub": {
         topic: function() {
           reset("privateDependency.exampleMethod");
+
           sinon.stub(fixture.__get__("privateDependency"), "exampleMethod", function() {
             return "I am a stub";
           });
+
           return fixture.methodUsingDependency();
         },
         "using sinon.stub": function(topic) {
@@ -140,6 +142,8 @@ vows.describe("Getters and setters").addBatch({
       },
       "with a double": {
         topic: function() {
+          reset("privateDependency.exampleMethod");
+
           fixture.__set__("privateDependency", {
             exampleMethod: function() {
               return "I am a double";
