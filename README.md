@@ -1,5 +1,7 @@
 # Rewireify ![Build status](https://api.travis-ci.org/i-like-robots/rewireify.png)
 
+**No longer in active development**.
+
 Rewireify is a port of [Rewire](https://github.com/jhnns/rewire) for [Browserify](http://browserify.org/) that adds setter and getter methods to each module so that their behaviour can be modified for better unit testing. With Rewireify you can:
 
 - Inject mocks for other modules
